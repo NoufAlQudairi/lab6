@@ -1,0 +1,27 @@
+{% extends "school/layout.html" %}
+
+{% block body %}
+     {{ student }} 
+     <form action="{% url 'school:details' student.id %}" method="post">
+        {% csrf_token %}
+        <select name="course">
+            {% for course in notRegisteredCourses %}
+                <option value="{{ course.id }}">{{ course.symbol }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+
+       <ul>
+         {% for course in courses %}
+             <li> {{ course }}</li>
+             {% empty %}
+                <li>No Courses.</li>
+         {% endfor %}
+      </ul>
+
+      <a href="{% url 'school:students' %}">Add Student</a>
+      <a href="{% url 'school:courses' %}">Add Course</a>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "school/layout.html" %}
+{% block body %}
+
+    <h1>Students</h1>
+    <ul>
+        {% for student in students %}
+            <li>
+                <a href="{% url 'school:details' student.id %}">
+                    Student {{ student.id }}: {{ student }}
+                </a>
+            </li>
+            {% empty %}
+            <li>No Students.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add Student:</h2>
+    <form action="{% url 'school:students' %}" method="post">
+        {%csrf_token%}
+        <table>{{form.as_table}}</table>
+        <button type="submit" value="Add Student">Submit</button>
+    </form>
+
+    <a href="{% url 'school:courses' %}">Add Course</a>
+{% endblock %}
